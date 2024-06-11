@@ -21,8 +21,6 @@ public class DBConnectTest extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setContentType("text/html; charset=UTF-8");
-		
 		final String URL = "jdbc:mysql://localhost:3306/jsp_am?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
 	    final String USER = "root";
 	    final String PASSWORD = "";
@@ -30,7 +28,7 @@ public class DBConnectTest extends HttpServlet {
 		Connection connection = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver"); 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			
 			SecSql sql = new SecSql();
@@ -40,7 +38,6 @@ public class DBConnectTest extends HttpServlet {
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(connection, sql);
 			
 			request.setAttribute("articleListMap", articleListMap);
-			
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 			
 			System.out.println("연결 성공");
