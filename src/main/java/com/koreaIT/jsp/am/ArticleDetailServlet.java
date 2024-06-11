@@ -33,11 +33,9 @@ public class ArticleDetailServlet extends HttpServlet {
 			
 			SecSql sql = new SecSql();
 			sql.append("select * from article"); 
-			sql.append("where id = ?", request.getAttribute("id"));
+			sql.append("where id = ?", request.getParameter("id"));
 			
-			System.out.println(request.getAttribute("id"));
-			
-			Map<String, Object> articleMap = DBUtil.selectRow(connection, sql);
+			Map<String, Object> articleMap = DBUtil.selectRow(connection, sql); 
 			
 			request.setAttribute("articleMap", articleMap);
 			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);

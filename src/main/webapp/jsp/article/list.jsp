@@ -18,7 +18,7 @@
 	<% 
 	for (Map<String, Object> articleMap : articleListMap){ 
 	%>
-		<li><%= articleMap.get("id") %> | <%= articleMap.get("regDate") %>| <a href="detail?id=<%= articleMap.get("id") %>">   <%= articleMap.get("title") %></a></li>
+		<li><%= articleMap.get("id") %> | <%= articleMap.get("regDate") %>| <a href="detail?id=<%= articleMap.get("id") %>">  <%= articleMap.get("title") %></a></li>
 	<% } %>
 	</ul>
 </body>
