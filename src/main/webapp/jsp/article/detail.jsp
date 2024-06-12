@@ -8,11 +8,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>detail</title>
+<title>상세보기</title>
 </head>
 <body>
-	<div><a href="/article/list">main</a></div>
-	<h1>detail</h1>
+	<div>
+		<div><a href="<%= request.getContextPath() %>/home/main">main</a></div>
+		<div><a href="<%= request.getContextPath() %>/article/list">list</a></div>
+		<div><a href="<%= request.getContextPath() %>/article/delete?id=<%= articleMap.get("id") %>">delete</a></div>
+	</div>
+	
+	<h1>상세보기</h1>
 	<ul>
 		<li>번호: <%= articleMap.get("id") %></li>
 		<li>작성일: <%= articleMap.get("regDate") %></li>

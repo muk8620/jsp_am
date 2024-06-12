@@ -29,4 +29,14 @@
     <servlet-name>DBConnectTest</servlet-name>
     <url-pattern>/DBConnectTest</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>fdas</display-name>
+    <servlet-name>fdas</servlet-name>
+    <servlet-class>com.koreaIT.jsp.am.fdas</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fdas</servlet-name>
+    <url-pattern>/fdas</url-pattern>
+  </servlet-mapping>
 </web-app>

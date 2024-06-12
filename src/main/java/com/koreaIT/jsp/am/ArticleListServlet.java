@@ -40,8 +40,6 @@ public class ArticleListServlet extends HttpServlet {
 			request.setAttribute("articleListMap", articleListMap);
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 			
-			System.out.println("연결 성공");
-			
         } catch (SQLException e) {
         	System.out.println("에러 : " + e);
         } catch (Exception e) {

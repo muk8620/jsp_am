@@ -31,16 +31,16 @@ public class ArticleDetailServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			
+			int id = Integer.parseInt(request.getParameter("id"));
+			
 			SecSql sql = new SecSql();
 			sql.append("select * from article"); 
-			sql.append("where id = ?", request.getParameter("id"));
+			sql.append("where id = ?", id);
 			
 			Map<String, Object> articleMap = DBUtil.selectRow(connection, sql); 
 			
 			request.setAttribute("articleMap", articleMap);
 			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
-			
-			System.out.println("연결 성공");
 			
         } catch (SQLException e) {
         	System.out.println("에러 : " + e);

@@ -9,11 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>list</title>
+<title>게시물 리스트</title>
 </head>
 <body>
+	<div>
+		<div><a href="<%= request.getContextPath() %>/home/main">main</a></div>
+	</div>
 	<h1>리스트</h1>
-	<div><a href="/home/main">main</a></div>
 	<ul>
 	<% 
 	for (Map<String, Object> articleMap : articleListMap){ 
