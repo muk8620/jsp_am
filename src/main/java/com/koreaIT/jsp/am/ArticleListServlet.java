@@ -31,12 +31,24 @@ public class ArticleListServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			
+			int id = 1;
+			try {
+				id = Integer.parseInt(request.getParameter("id"));
+			} catch (Exception e) {
+				id = 1;
+			}
+			
+			int startNumber = (id - 1) * 10;
+			int limitNumber = 10;
+			
 			SecSql sql = new SecSql();
 			sql.append("select * from article");
 			sql.append("order by id desc");
+			sql.append("limit ?, ?", startNumber, limitNumber);
 			
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(connection, sql);
 			
+			request.setAttribute("id", id);
 			request.setAttribute("articleListMap", articleListMap);
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 			

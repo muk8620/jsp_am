@@ -37,5 +37,12 @@ INSERT INTO `member`
         , loginPw = '1234'
         , `name` = '유저1';
         
+TRUNCATE article; 
+       
+
+INSERT INTO article (regDate, updateDate, title, `body`)
+SELECT NOW(), NOW(), CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
+FROM article;
+
 SELECT * FROM article;
 SELECT * FROM `member`;
