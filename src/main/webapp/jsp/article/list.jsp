@@ -4,7 +4,8 @@
     pageEncoding="UTF-8"%>
 <%
 	List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) request.getAttribute("articleListMap");
-	int id = (int) request.getAttribute("id");
+	int totalPageCnt = (int) request.getAttribute("totalPageCnt");
+	int cPage = (int) request.getAttribute("cPage");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,13 +41,22 @@
 		<% } %>
 	</table>
 	
+	<style type="text/css">
+		.red {
+			color: red;
+			font-size: 1.5rem;
+		}
+	</style>
+	
 	<div>
 		<% 
-		for (int i = id; i < (id + 10); i++){ 
+		for (int i = 1; i <= totalPageCnt; i++) {
 		%>
-			<div style='display:inline-block'><a href="list?id=<%= i %>"><%= i %></a></div>
-		<% } %>
-	</div>		
+			<a class="<%= cPage == i ? "red" : "" %>" href="?page=<%= i %>"><%= i %></a>
+		<%
+		}
+		%>
+	</div>	
 </body>
 </html>
 

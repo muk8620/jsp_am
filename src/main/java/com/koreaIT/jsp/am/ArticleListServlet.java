@@ -31,25 +31,34 @@ public class ArticleListServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			
-			int id = 1;
-			try {
-				id = Integer.parseInt(request.getParameter("id"));
-			} catch (Exception e) {
-				id = 1;
+			int cPage = 1;
+
+			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
+				cPage = Integer.parseInt(request.getParameter("page"));
 			}
 			
-			int startNumber = (id - 1) * 10;
-			int limitNumber = 10;
+			int itemsInAPage = 10;
+			
+			int limitFrom = (cPage - 1) * itemsInAPage;
 			
 			SecSql sql = new SecSql();
+			sql.append("select count(id) from article");
+			
+			int totalCnt = DBUtil.selectRowIntValue(connection, sql);
+			
+			int totalPageCnt = (int) Math.ceil((double) totalCnt / itemsInAPage);
+					
+			sql = new SecSql();
 			sql.append("select * from article");
-			sql.append("order by id desc");
-			sql.append("limit ?, ?", startNumber, limitNumber);
+			sql.append("order by id DESC");
+			sql.append("limit ?, ?", limitFrom, itemsInAPage);
 			
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(connection, sql);
 			
-			request.setAttribute("id", id);
+			request.setAttribute("cPage", cPage);
+			request.setAttribute("totalPageCnt", totalPageCnt);
 			request.setAttribute("articleListMap", articleListMap);
+			
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 			
         } catch (SQLException e) {
