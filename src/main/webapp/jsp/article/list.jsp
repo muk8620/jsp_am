@@ -13,16 +13,31 @@
 </head>
 <body>
 	<div>
-		<div><a href="<%= request.getContextPath() %>/home/main">main</a></div>
+		<div><a href="<%= request.getContextPath() %>/home/main">메인</a></div>
 	</div>
 	<h1>리스트</h1>
-	<ul>
-	<% 
-	for (Map<String, Object> articleMap : articleListMap){ 
-	%>
-		<li><%= articleMap.get("id") %> | <%= articleMap.get("regDate") %>| <a href="detail?id=<%= articleMap.get("id") %>">  <%= articleMap.get("title") %></a></li>
-	<% } %>
-	</ul>
+	
+	<table border='1'>
+		<colgroup>
+			<col width="100" />
+			<col width="200" />
+			<col width="300" />
+		</colgroup>
+		<tr>
+			<th>번호</th>
+			<th>작성일</th>
+			<th>제목</th>
+		</tr>
+		<% 
+		for (Map<String, Object> articleMap : articleListMap){ 
+		%>
+			<tr>
+				<td><%= articleMap.get("id") %></td>
+				<td><%= articleMap.get("regDate") %></td>
+				<td><a href="detail?id=<%= articleMap.get("id") %>">  <%= articleMap.get("title") %></a></td>
+			</tr>
+		<% } %>
+	</table>
 </body>
 </html>
 

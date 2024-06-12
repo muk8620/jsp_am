@@ -12,18 +12,19 @@
 </head>
 <body>
 	<div>
-		<div><a href="<%= request.getContextPath() %>/home/main">main</a></div>
-		<div><a href="<%= request.getContextPath() %>/article/list">list</a></div>
-		<div><a href="<%= request.getContextPath() %>/article/delete?id=<%= articleMap.get("id") %>">delete</a></div>
+		<div><a href="<%= request.getContextPath() %>/home/main">메인</a></div>
 	</div>
 	
 	<h1>상세보기</h1>
-	<ul>
-		<li>번호: <%= articleMap.get("id") %></li>
-		<li>작성일: <%= articleMap.get("regDate") %></li>
-		<li>수정일: <%= articleMap.get("updateDate") %></li>
-		<li>제목: <%= articleMap.get("title") %></li>
-		<li>내용: <%= articleMap.get("body") %></li>
-	</ul>
+	<div>번호: <%= articleMap.get("id") %></div>
+	<div>작성일: <%= articleMap.get("regDate") %></div>
+	<div>수정일: <%= articleMap.get("updateDate") %></div>
+	<div>제목: <%= articleMap.get("title") %></div>
+	<div>내용: <%= articleMap.get("body") %></div>
+	
+	<div>
+		<div><a href="<%= request.getContextPath() %>/article/list">목록</a></div>
+		<div><a href="<%= request.getContextPath() %>/article/delete?id=<%= articleMap.get("id") %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a></div>
+	</div>
 </body>
 </html>
