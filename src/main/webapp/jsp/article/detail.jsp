@@ -23,8 +23,9 @@
 	<div>내용: <%= articleMap.get("body") %></div>
 	
 	<div>
-		<div><a href="<%= request.getContextPath() %>/article/list">목록</a></div>
-		<div><a href="<%= request.getContextPath() %>/article/delete?id=<%= articleMap.get("id") %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a></div>
+		<a href="list">목록</a>
+		<a href="modify?id=<%= articleMap.get("id") %>">수정</a>
+		<a href="delete?id=<%= articleMap.get("id") %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 	</div>
 </body>
 </html>
