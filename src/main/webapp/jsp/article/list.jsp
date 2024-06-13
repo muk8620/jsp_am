@@ -18,6 +18,7 @@
 <body>
 	<div>
 		<div><a href="<%= request.getContextPath() %>/home/main">메인</a></div>
+		<div><a href="write">글쓰기</a></div>
 	</div>
 	<h1>리스트</h1>
 	
