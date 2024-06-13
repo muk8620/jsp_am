@@ -28,7 +28,7 @@ public class ArticleListServlet extends HttpServlet {
 		Connection connection = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); 
+			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			
 			int cPage = 1;
@@ -41,21 +41,26 @@ public class ArticleListServlet extends HttpServlet {
 			
 			int limitFrom = (cPage - 1) * itemsInAPage;
 			
+			int from = ((cPage - 1) / itemsInAPage) * 10 + 1;
+			int end =  (((cPage - 1) / itemsInAPage) + 1) * 10;
+			
 			SecSql sql = new SecSql();
-			sql.append("select count(id) from article");
+			sql.append("SELECT COUNT(id) FROM article");
 			
 			int totalCnt = DBUtil.selectRowIntValue(connection, sql);
 			
 			int totalPageCnt = (int) Math.ceil((double) totalCnt / itemsInAPage);
 					
 			sql = new SecSql();
-			sql.append("select * from article");
-			sql.append("order by id DESC");
-			sql.append("limit ?, ?", limitFrom, itemsInAPage);
+			sql.append("SELECT * FROM article");
+			sql.append("ORDER BY id DESC");
+			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
 			
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(connection, sql);
 			
 			request.setAttribute("cPage", cPage);
+			request.setAttribute("from", from);
+			request.setAttribute("end", end);
 			request.setAttribute("totalPageCnt", totalPageCnt);
 			request.setAttribute("articleListMap", articleListMap);
 			
