@@ -44,13 +44,7 @@ public class MemberDoJoinServlet extends HttpServlet {
 			}
 			
 			String loginPw = request.getParameter("loginPw");
-			String loginPwChk = request.getParameter("loginPwChk");
 			String name = request.getParameter("name");
-			
-			if (!loginPw.equals(loginPwChk)) {
-				response.getWriter().append(String.format("<script>alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.'); history.back();</script>"));
-				return;
-			}
 			
 			sql = new SecSql();
 			sql.append("INSERT INTO `member`"); 
