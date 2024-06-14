@@ -18,11 +18,13 @@
 	<form action="doModify" method="post">
 		<input type="hidden" name="id" value="<%= articleMap.get("id") %>"/>
 		<div>
-			<div>번호: <%= articleMap.get("id") %></div>
-			<div>작성일: <%= articleMap.get("regDate") %></div>
-			<div>수정일: <%= articleMap.get("updateDate") %></div>
-			<div>제목 : <input type="text" name="title" placeholder="제목을 입력해주세요." value="<%= articleMap.get("title") %>"/></div>
-			<div>내용 : <textarea name="body"><%= articleMap.get("body") %></textarea></div>
+			<div>
+				<div>번호: <%= articleMap.get("id") %></div>
+				<div>작성일: <%= articleMap.get("regDate") %></div>
+				<div>수정일: <%= articleMap.get("updateDate") %></div>
+				<div>제목 : <input type="text" name="title" placeholder="제목을 입력해주세요." value="<%= articleMap.get("title") %>"/></div>
+				<div>내용 : <textarea name="body"><%= articleMap.get("body") %></textarea></div>
+			</div>
 			
 			<div>
 				<button>수정</button>

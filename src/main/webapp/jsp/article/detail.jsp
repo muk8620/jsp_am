@@ -23,8 +23,8 @@
 	<div>내용: <%= articleMap.get("body") %></div>
 	
 	<div>
-		<a href="list">목록</a>
 		<a href="modify?id=<%= articleMap.get("id") %>">수정</a>
+		<a href="list">목록</a>
 		<a href="delete?id=<%= articleMap.get("id") %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 	</div>
 </body>

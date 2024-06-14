@@ -1,19 +1,20 @@
 package com.koreaIT.jsp.am;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Map;
+
+import com.koreaIT.jsp.am.config.Config;
+import com.koreaIT.jsp.am.util.DBUtil;
+import com.koreaIT.jsp.am.util.SecSql;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-
-import com.koreaIT.jsp.am.util.DBUtil;
-import com.koreaIT.jsp.am.util.SecSql;
 
 @WebServlet("/article/detail")
 public class ArticleDetailServlet extends HttpServlet {
@@ -21,15 +22,11 @@ public class ArticleDetailServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		final String URL = "jdbc:mysql://localhost:3306/jsp_am?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
-	    final String USER = "root";
-	    final String PASSWORD = "";
-	    
 		Connection connection = null;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); 
-			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Class.forName(Config.getDBDriverName()); 
+			connection = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUsr(), Config.getDBPW());
 			
 			int id = Integer.parseInt(request.getParameter("id"));
 			

@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/article/doWrite")
-public class ArticleDoWriteServlet extends HttpServlet {
+@WebServlet("/member/doJoin")
+public class MemberDoJoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,25 +25,46 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		Connection connection = null;
 		
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			
 			Class.forName(Config.getDBDriverName()); 
 			connection = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUsr(), Config.getDBPW());
 			
-			String title = request.getParameter("title");
-			String body = request.getParameter("body");
+			String loginId = request.getParameter("loginId");
 			
 			SecSql sql = new SecSql();
-			sql.append("INSERT INTO article"); 
+			sql.append("SELECT count(id) from `member`"); 
+			sql.append("where loginId = ?", loginId);
+			
+			Boolean loginIdDupChk = DBUtil.selectRowBooleanValue(connection, sql);
+			
+			if (loginIdDupChk) {
+				response.getWriter().append(String.format("<script>alert('[%s] 은(는) 이미 존재하는 아이디 입니다.'); history.back();</script>", loginId));
+				return;
+			}
+			
+			String loginPw = request.getParameter("loginPw");
+			String loginPwChk = request.getParameter("loginPwChk");
+			String name = request.getParameter("name");
+			
+			if (!loginPw.equals(loginPwChk)) {
+				response.getWriter().append(String.format("<script>alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.'); history.back();</script>"));
+				return;
+			}
+			
+			sql = new SecSql();
+			sql.append("INSERT INTO `member`"); 
 			sql.append("SET regDate = NOW()");
 			sql.append(", updateDate = NOW()");
-			sql.append(", title = ?", title);
-			sql.append(", `body` = ?", body);
+			sql.append(", loginId = ?", loginId);
+			sql.append(", loginPw = ?", loginPw);
+			sql.append(", `name` = ?", name);
 			
-			int id = DBUtil.insert(connection, sql);
+			DBUtil.insert(connection, sql);
 			
-			response.setContentType("text/html; charset=UTF-8");
-			response.getWriter().append(String.format("<script>alert('%d번 게시물이 작성되었습니다.'); location.replace('list');</script>", id));
+			response.getWriter().append(String.format("<script>alert('%s회원님 가입 되었습니다.'); location.replace('/home/main');</script>", name));
 			
-        } catch (SQLException e) {
+        } catch (SQLException e) {	
         	System.out.println("에러 : " + e);
         } catch (Exception e) {
         	e.printStackTrace();
