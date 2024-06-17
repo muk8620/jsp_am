@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>로그인</title>
 </head>
 <body>
-	<h2>회원가입</h2>
+	<h2>로그인</h2>
 	
 	<script>
 	  const loginFormSubmit = function(form) {

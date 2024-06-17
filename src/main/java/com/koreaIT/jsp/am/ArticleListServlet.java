@@ -16,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/list")
 public class ArticleListServlet extends HttpServlet {
@@ -30,7 +31,7 @@ public class ArticleListServlet extends HttpServlet {
 			connection = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUsr(), Config.getDBPW());
 			
 			int cPage = 1;
-
+			
 			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
 				cPage = Integer.parseInt(request.getParameter("page"));
 			}
@@ -50,12 +51,24 @@ public class ArticleListServlet extends HttpServlet {
 			int totalPageCnt = (int) Math.ceil((double) totalCnt / itemsInAPage);
 					
 			sql = new SecSql();
-			sql.append("SELECT * FROM article");
-			sql.append("ORDER BY id DESC");
+			sql.append("SELECT a.*, m.name writerName");
+			sql.append("FROM article a");
+			sql.append("INNER JOIN `member` m");
+			sql.append("ON a.memberId = m.id");
+			sql.append("ORDER BY a.id DESC");
 			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
+			
+			HttpSession session = request.getSession();
+			
+			int loginedMemberId = -1;
+			
+			if (session.getAttribute("loginedMemberId") != null) {
+				loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			}
 			
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(connection, sql);
 			
+			request.setAttribute("loginedMemberId", loginedMemberId);
 			request.setAttribute("cPage", cPage);
 			request.setAttribute("from", from);
 			request.setAttribute("end", end);

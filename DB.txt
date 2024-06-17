@@ -26,7 +26,7 @@ CREATE TABLE `member`(
 INSERT INTO article
     SET regDate = NOW()
         , updateDate = NOW()
---         , memberId = 1
+        , memberId = 1
         , title = CONCAT('제목_', RAND())
         , `body` = CONCAT('내용_', RAND());
         
@@ -38,11 +38,19 @@ INSERT INTO `member`
         , `name` = '유저1';
         
 TRUNCATE article; 
-       
+TRUNCATE `member`; 
 
-INSERT INTO article (regDate, updateDate, title, `body`)
-SELECT NOW(), NOW(), CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
+INSERT INTO article (regDate, updateDate, memberId, title, `body`)
+SELECT NOW(), NOW(), CEIL(RAND() * 3), CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
 FROM article;
+
+SELECT a.*
+	, m.name 
+FROM article a
+INNER JOIN `member` m
+ON a.memberId = m.id 
+ORDER BY id DESC
+LIMIT 0, 10;
 
 SELECT * FROM article;
 SELECT * FROM `member`;

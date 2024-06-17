@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+
 	List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) request.getAttribute("articleListMap");
 	int totalPageCnt = (int) request.getAttribute("totalPageCnt");
 	int cPage = (int) request.getAttribute("cPage");
@@ -18,7 +20,11 @@
 <body>
 	<div>
 		<div><a href="<%= request.getContextPath() %>/home/main">메인</a></div>
-		<div><a href="write">글쓰기</a></div>
+		<% 
+		if(loginedMemberId != -1) { 
+		%>
+			<div><a href="write">글쓰기</a></div>
+		<% } %>
 	</div>
 	<h1>리스트</h1>
 	
@@ -32,6 +38,7 @@
 			<th>번호</th>
 			<th>작성일</th>
 			<th>제목</th>
+			<th>작성자</th>
 		</tr>
 		<% 
 		for (Map<String, Object> articleMap : articleListMap){ 
@@ -40,6 +47,7 @@
 				<td><%= articleMap.get("id") %></td>
 				<td><%= articleMap.get("regDate") %></td>
 				<td><a href="detail?id=<%= articleMap.get("id") %>">  <%= articleMap.get("title") %></a></td>
+				<td><%= articleMap.get("writerName") %></td>
 			</tr>
 		<% } %>
 	</table>
