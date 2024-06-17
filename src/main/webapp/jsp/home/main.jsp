@@ -11,6 +11,8 @@
 	<div>
 		<div><a href="<%= request.getContextPath() %>/article/list">게시물 리스트</a></div>
 		<div><a href="<%= request.getContextPath() %>/member/join">회원가입</a></div>
+		<div><a href="<%= request.getContextPath() %>/member/login">로그인</a></div>
+		<div><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></div>
 	</div>
 	
 </body>
