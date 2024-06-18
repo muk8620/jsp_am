@@ -3,8 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-
 	List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) request.getAttribute("articleListMap");
 	int totalPageCnt = (int) request.getAttribute("totalPageCnt");
 	int cPage = (int) request.getAttribute("cPage");
@@ -19,6 +17,7 @@
 </head>
 <body>
 	<div>
+		<%@ include file="/jsp/common/topbar.jsp" %>
 		<div><a href="<%= request.getContextPath() %>/home/main">메인</a></div>
 		<% 
 		if(loginedMemberId != -1) { 
